@@ -289,6 +289,8 @@ ul {
   font-weight: 600;
   color: var(--navy);
   font-size: 0.95rem;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .header-phone svg {

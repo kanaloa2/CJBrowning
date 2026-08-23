@@ -115,7 +115,68 @@ async function handleLead(request, env, ctx) {
     );
   }
 
+  if (env.AGENCYZOOM_API_URL && env.AGENCYZOOM_API_KEY) {
+    ctx.waitUntil(forwardToAgencyZoom(lead, env));
+  }
+
   return jsonResponse({ ok: true, id });
+}
+
+/**
+ * Forwards a lead to AgencyZoom's Lead API.
+ *
+ * NOT YET VERIFIED against AgencyZoom's actual API contract — the field
+ * names, auth header, and endpoint path below are a best-effort mapping
+ * and must be confirmed against AgencyZoom's own API docs (or an example
+ * request from their support team) before this can be trusted in
+ * production. Until then, failures are recorded in KV (under the
+ * `agencyzoom-failure:` prefix) rather than silently dropped, so leads
+ * are never lost even if this integration is misconfigured.
+ */
+async function forwardToAgencyZoom(lead, env) {
+  const [firstName, ...rest] = lead.name.split(" ");
+  const lastName = rest.join(" ") || firstName;
+
+  const body = {
+    firstName,
+    lastName,
+    email: lead.email,
+    phone: lead.phone,
+    zip: lead.zip,
+    products: lead.insuranceTypes,
+    note: [lead.currentCarrier && `Current carrier: ${lead.currentCarrier}`, lead.message]
+      .filter(Boolean)
+      .join(" | "),
+    leadSource: env.AGENCYZOOM_LEAD_SOURCE || "Website",
+  };
+
+  const headerName = env.AGENCYZOOM_AUTH_HEADER_NAME || "Authorization";
+  const headerPrefix = env.AGENCYZOOM_AUTH_HEADER_PREFIX ?? "Bearer ";
+
+  try {
+    const res = await fetch(env.AGENCYZOOM_API_URL, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        [headerName]: `${headerPrefix}${env.AGENCYZOOM_API_KEY}`,
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!res.ok && env.LEADS) {
+      await env.LEADS.put(
+        `agencyzoom-failure:${lead.receivedAt}:${lead.id}`,
+        JSON.stringify({ status: res.status, statusText: res.statusText, body, leadId: lead.id })
+      );
+    }
+  } catch (err) {
+    if (env.LEADS) {
+      await env.LEADS.put(
+        `agencyzoom-failure:${lead.receivedAt}:${lead.id}`,
+        JSON.stringify({ error: String(err), body, leadId: lead.id })
+      );
+    }
+  }
 }
 
 export default {

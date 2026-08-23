@@ -20,3 +20,15 @@ enabled = true
 # or uncomment and set a plain-text var below.
 # [vars]
 # LEAD_WEBHOOK_URL = "https://hooks.example.com/your-webhook"
+
+# Optional: forward every new lead directly to AgencyZoom's Lead API.
+# Requires an API key from AgencyZoom (Settings > Integrations/API) and the
+# exact endpoint/auth header they specify — see src/worker.js for the
+# current (unverified) field mapping, which should be confirmed against
+# AgencyZoom's docs before going live.
+#   wrangler secret put AGENCYZOOM_API_KEY
+# [vars]
+# AGENCYZOOM_API_URL = "https://api.agencyzoom.com/api/leads"
+# AGENCYZOOM_LEAD_SOURCE = "Website"
+# AGENCYZOOM_AUTH_HEADER_NAME = "Authorization"
+# AGENCYZOOM_AUTH_HEADER_PREFIX = "Bearer "
