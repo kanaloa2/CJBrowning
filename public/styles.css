@@ -1,14 +1,15 @@
 /* CJ Browning Insurance Agency — stylesheet */
 
 :root {
-  --navy: #0b2545;
-  --navy-2: #123c69;
-  --blue: #1c5fa8;
-  --sky: #eef4fc;
-  --sky-2: #dce9fa;
-  --gold: #f2a93b;
-  --gold-dark: #d98d1a;
-  --red: #c8202f;
+  /* Official Farmers Insurance brand palette */
+  --navy: #00276e; /* Farmers Dark Blue */
+  --navy-2: #003087; /* Farmers Blue */
+  --blue: #003087; /* Farmers Blue */
+  --sky: #dae7ff; /* Farmers Bright Blue */
+  --sky-2: #b4c4ea; /* Farmers Light Blue */
+  --accent: #e01933; /* Farmers Red */
+  --accent-dark: #b30032; /* Farmers Dark Red */
+  --red: #b30032; /* Farmers Dark Red */
   --ink: #16202e;
   --gray: #5b6472;
   --gray-light: #8996a6;
@@ -116,13 +117,13 @@ ul {
 }
 
 .btn-primary {
-  background: var(--gold);
+  background: var(--accent);
   color: var(--navy);
-  box-shadow: 0 12px 24px -10px rgba(242, 169, 59, 0.65);
+  box-shadow: 0 12px 24px -10px rgba(224, 25, 51, 0.45);
 }
 
 .btn-primary:hover {
-  background: var(--gold-dark);
+  background: var(--accent-dark);
 }
 
 .btn-outline {
@@ -155,8 +156,8 @@ ul {
   font-size: 0.78rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--gold-dark);
-  background: #fff4e2;
+  color: var(--accent-dark);
+  background: #fdeaee;
   padding: 6px 14px;
   border-radius: 999px;
   margin-bottom: 14px;
@@ -296,7 +297,7 @@ ul {
 .header-phone svg {
   width: 20px;
   height: 20px;
-  color: var(--gold-dark);
+  color: var(--accent-dark);
 }
 
 .nav-toggle {
@@ -327,8 +328,8 @@ ul {
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 82% 12%, rgba(242, 169, 59, 0.28), transparent 45%),
-    radial-gradient(circle at 8% 90%, rgba(28, 95, 168, 0.35), transparent 50%);
+  background: radial-gradient(circle at 82% 12%, rgba(224, 25, 51, 0.25), transparent 45%),
+    radial-gradient(circle at 8% 90%, rgba(0, 48, 135, 0.4), transparent 50%);
   pointer-events: none;
 }
 
@@ -374,7 +375,7 @@ ul {
 .hero-badge svg {
   width: 16px;
   height: 16px;
-  color: var(--gold);
+  color: var(--accent);
   flex: none;
 }
 
@@ -565,7 +566,7 @@ ul {
 .trust-item svg {
   width: 22px;
   height: 22px;
-  color: var(--gold-dark);
+  color: var(--accent-dark);
   flex: none;
 }
 
@@ -772,7 +773,7 @@ ul {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: var(--gold);
+  background: var(--accent);
   color: var(--navy);
   font-family: var(--font-head);
   font-weight: 700;
@@ -813,7 +814,7 @@ ul {
   display: block;
   font-family: var(--font-head);
   font-size: 2.1rem;
-  color: var(--gold);
+  color: var(--accent);
 }
 
 .stat span {

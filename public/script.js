@@ -82,11 +82,11 @@
             form.reset();
             showMsg("Thanks! A local agent will reach out shortly, usually the same business day.", true);
           } else {
-            showMsg((result.body && result.body.error) || "Something went wrong. Please call us at (480) 555-0142.", false);
+            showMsg((result.body && result.body.error) || "Something went wrong. Please call us at (480) 744-0944.", false);
           }
         })
         .catch(function () {
-          showMsg("We couldn't send that. Please call us at (480) 555-0142.", false);
+          showMsg("We couldn't send that. Please call us at (480) 744-0944.", false);
         })
         .finally(function () {
           submitBtn.disabled = false;
