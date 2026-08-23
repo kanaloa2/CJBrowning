@@ -35,26 +35,30 @@ npm run deploy
 ```
 
 This deploys to the `cjbrowning` Worker using the config in `wrangler.toml`.
+As of this commit, the `cjbrowning` Worker is also connected to Workers
+Builds against this repo's `main` branch, so a push to `main` triggers an
+automatic build + deploy — `npm run deploy` is only needed for manual/local
+deploys.
 
-## Before going live — replace these placeholders
+## Real agency details (done)
 
-The site ships with clearly-fake placeholder contact details so it's safe
-to deploy immediately. Update the following before directing real traffic
-to it:
+- **Phone**: (480) 744-0944
+- **Email**: cbrowning1@farmersagent.com
+- **Address**: 14555 N Scottsdale Rd, Ste 300, Scottsdale, AZ 85254
+- **Hours**: Mon–Fri, 8:30 AM–5:30 PM MST
+- **AZ producer license**: #9349979
 
-- **Phone number** — currently `(480) 555-0142` (a fictional 555 number).
-  Update in `public/index.html` (multiple places), `public/llms.txt`, and
-  the JSON-LD `telephone` field.
-- **Email** — currently `quotes@cjbrowninginsurance.com`.
-- **Domain** — currently assumes `https://www.cjbrowninginsurance.com/`.
-  Update the canonical URL, Open Graph URLs, JSON-LD `url`, `robots.txt`,
-  and `sitemap.xml` once the real domain and a custom domain/route are
+These are reflected in `public/index.html` (including JSON-LD), `public/llms.txt`,
+and the footer disclaimer.
+
+## Still outstanding
+
+- **Domain** — currently assumes `https://cjbrowning.cjbrowning7.workers.dev/`
+  (the live `workers.dev` URL). Update the canonical URL, Open Graph URLs,
+  JSON-LD `url`, `robots.txt`, and `sitemap.xml` if/when a custom domain is
   attached to the Worker.
-- **Street address** — the site currently only states "Scottsdale, AZ
-  85251" (no street address, intentionally, since none was provided). Add
-  the real office address to the contact section and JSON-LD once known.
-- **Arizona producer license number** — not included; add it to the footer
-  disclaimer if you'd like it displayed.
+- **Agent photo & Farmers logo** — not yet added; needs the actual image
+  files.
 - **Social links** — footer icons currently link to `#`; point them at real
   profiles or remove them.
 - **`og-cover.png`** — an Open Graph share image is referenced but not
@@ -63,4 +67,6 @@ to it:
 - **Lead delivery** — leads are stored in the `LEADS` KV namespace. To also
   forward leads to email/CRM/Slack in real time, set `LEAD_WEBHOOK_URL`
   (e.g. `wrangler secret put LEAD_WEBHOOK_URL`) to a Zapier/Make/CRM
-  webhook URL.
+  webhook URL. An AgencyZoom Lead API forwarder also exists in
+  `src/worker.js` (see `AGENCYZOOM_*` vars in `wrangler.toml`), pending
+  confirmed API details from AgencyZoom.
