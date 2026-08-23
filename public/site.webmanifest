@@ -1,0 +1,16 @@
+{
+  "name": "CJ Browning Insurance Agency",
+  "short_name": "CJ Browning",
+  "description": "Farmers Insurance agency in Scottsdale, AZ offering auto, home, renters, umbrella, and business insurance.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0b2545",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

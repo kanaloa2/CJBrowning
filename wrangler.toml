@@ -1,0 +1,22 @@
+name = "cjbrowning"
+main = "src/worker.js"
+compatibility_date = "2026-08-23"
+
+[assets]
+directory = "./public"
+binding = "ASSETS"
+not_found_handling = "404-page"
+run_worker_first = ["/api/*"]
+
+[[kv_namespaces]]
+binding = "LEADS"
+id = "d25c4ae3b00a4da58618805af30135be"
+
+[observability]
+enabled = true
+
+# Optional: set a webhook URL (Zapier, Make, CRM, Slack, etc.) to forward
+# new leads in real time. Configure via `wrangler secret put LEAD_WEBHOOK_URL`
+# or uncomment and set a plain-text var below.
+# [vars]
+# LEAD_WEBHOOK_URL = "https://hooks.example.com/your-webhook"
