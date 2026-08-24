@@ -329,6 +329,10 @@ ul {
   position: relative;
   overflow: hidden;
   padding: 76px 0 100px;
+  background: linear-gradient(180deg, rgba(0, 39, 110, 0.45), rgba(0, 25, 63, 0.72)), url('/images/sonoran-desert.webp');
+  background-size: cover;
+  background-position: center 62%;
+  background-attachment: fixed;
 }
 
 .hero::before {
@@ -725,9 +729,9 @@ ul {
 /* Local section — parallax desert background */
 .desert-parallax {
   position: relative;
-  background-image: url('/images/desert-parallax.svg');
+  background-image: url('/images/sonoran-desert.webp');
   background-size: cover;
-  background-position: center 70%;
+  background-position: center 65%;
   background-repeat: no-repeat;
   background-attachment: fixed;
 }
@@ -753,13 +757,15 @@ ul {
 }
 
 @media (max-width: 900px) {
-  .desert-parallax {
+  .desert-parallax,
+  .hero {
     background-attachment: scroll;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .desert-parallax {
+  .desert-parallax,
+  .hero {
     background-attachment: scroll;
   }
 }
