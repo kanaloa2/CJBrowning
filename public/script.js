@@ -100,7 +100,8 @@
 
       var payload = {
         website: data.get("website") || "",
-        name: (data.get("name") || "").toString().trim(),
+        firstName: (data.get("firstName") || "").toString().trim(),
+        lastName: (data.get("lastName") || "").toString().trim(),
         phone: (data.get("phone") || "").toString().trim(),
         email: (data.get("email") || "").toString().trim(),
         zip: (data.get("zip") || "").toString().trim(),
@@ -110,7 +111,7 @@
         source: window.location.href,
       };
 
-      if (!payload.name || !payload.phone || !payload.email || !payload.zip) {
+      if (!payload.firstName || !payload.lastName || !payload.phone || !payload.email || !payload.zip) {
         showMsg("Please fill in your name, phone, email, and ZIP code.", false);
         return;
       }

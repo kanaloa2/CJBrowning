@@ -56,7 +56,8 @@ async function handleLead(request, env, ctx) {
     return jsonResponse({ ok: true });
   }
 
-  const name = sanitize(payload.name, 120);
+  const firstName = sanitize(payload.firstName, 60);
+  const lastName = sanitize(payload.lastName, 60);
   const phone = sanitize(payload.phone, 40);
   const email = sanitize(payload.email, 200);
   const zip = sanitize(payload.zip, 10);
@@ -71,7 +72,7 @@ async function handleLead(request, env, ctx) {
     .filter((t) => INSURANCE_TYPES.has(t));
 
   const errors = [];
-  if (!name) errors.push("Name is required.");
+  if (!firstName || !lastName) errors.push("First and last name are required.");
   if (!isValidPhone(phone)) errors.push("A valid phone number is required.");
   if (!isValidEmail(email)) errors.push("A valid email address is required.");
   if (!zip || !/^\d{5}$/.test(zip)) errors.push("A valid 5-digit ZIP code is required.");
@@ -85,7 +86,9 @@ async function handleLead(request, env, ctx) {
   const id = crypto.randomUUID();
   const lead = {
     id,
-    name,
+    firstName,
+    lastName,
+    name: `${firstName} ${lastName}`,
     phone,
     email,
     zip,
@@ -136,9 +139,6 @@ async function handleLead(request, env, ctx) {
  * are intentionally omitted rather than guessed.
  */
 async function forwardToAgencyZoom(lead, env) {
-  const [firstname, ...rest] = lead.name.split(" ");
-  const lastname = rest.join(" ") || firstname;
-
   const notes = [
     lead.insuranceTypes.length ? `Interested in: ${lead.insuranceTypes.join(", ")}` : "",
     lead.bestTime ? `Best time to reach: ${lead.bestTime}` : "",
@@ -148,8 +148,8 @@ async function forwardToAgencyZoom(lead, env) {
     .join(" | ");
 
   const body = {
-    firstname,
-    lastname,
+    firstname: lead.firstName,
+    lastname: lead.lastName,
     contactname: lead.name,
     email: lead.email,
     phone: lead.phone.replace(/\D/g, ""),
