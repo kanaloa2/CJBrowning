@@ -258,6 +258,13 @@ ul {
   text-transform: uppercase;
 }
 
+.farmers-badge {
+  height: 30px;
+  width: auto;
+  flex: none;
+  margin-left: -4px;
+}
+
 .main-nav {
   display: flex;
   align-items: center;
@@ -385,9 +392,18 @@ ul {
   gap: 14px;
 }
 
-.hero-illustration {
-  margin-top: 44px;
-  opacity: 0.9;
+.hero-visual-card {
+  margin-top: 36px;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  max-width: 360px;
+}
+
+.hero-visual-card img {
+  width: 100%;
+  height: auto;
 }
 
 /* Quote card */
@@ -397,6 +413,12 @@ ul {
   box-shadow: var(--shadow);
   padding: 30px;
   color: var(--ink);
+}
+
+.quote-card-icon {
+  width: 44px;
+  height: auto;
+  margin-bottom: 10px;
 }
 
 .quote-card h2 {
@@ -686,7 +708,29 @@ ul {
   box-shadow: var(--shadow);
 }
 
+.illustration-frame {
+  background: var(--sky);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+
+.illustration-frame img {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+}
+
 /* Local section */
+.local-banner {
+  height: 220px;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 48px;
+}
+
 .local-wrap {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -796,6 +840,11 @@ ul {
 /* Farmers network band */
 .network-band {
   text-align: center;
+}
+
+.network-band-logo {
+  display: block;
+  margin: 0 auto 22px;
 }
 
 .network-band .stat-row {
@@ -917,6 +966,10 @@ ul {
   align-items: start;
 }
 
+.contact-grid > * {
+  min-width: 0;
+}
+
 .contact-card {
   background: #fff;
   border: 1px solid var(--line);
@@ -937,6 +990,10 @@ ul {
   align-items: flex-start;
 }
 
+.contact-list li > div {
+  min-width: 0;
+}
+
 .contact-list svg {
   width: 22px;
   height: 22px;
@@ -949,6 +1006,8 @@ ul {
   text-decoration: none;
   color: var(--navy);
   font-weight: 600;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .contact-list span {
@@ -1000,6 +1059,11 @@ ul {
 
 .footer-col a:hover {
   color: #fff;
+}
+
+.footer-farmers-logo {
+  display: block;
+  margin: 18px 0 4px;
 }
 
 .social-row {
@@ -1102,6 +1166,14 @@ ul {
   }
 
   .header-phone span {
+    display: none;
+  }
+
+  .farmers-badge {
+    display: none;
+  }
+
+  .header-actions > .btn {
     display: none;
   }
 
