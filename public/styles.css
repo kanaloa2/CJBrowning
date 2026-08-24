@@ -657,6 +657,38 @@ ul {
   align-items: center;
 }
 
+.agent-badge {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.agent-badge img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: var(--shadow-sm);
+  flex: none;
+}
+
+.agent-badge div {
+  display: flex;
+  flex-direction: column;
+}
+
+.agent-badge strong {
+  font-family: var(--font-head);
+  color: var(--navy);
+  font-size: 1rem;
+}
+
+.agent-badge span {
+  font-size: 0.85rem;
+  color: var(--gray);
+}
+
 .why-list {
   display: flex;
   flex-direction: column;
