@@ -63,6 +63,23 @@
     update();
   })();
 
+  // Auto-format the phone field as a US number: (480) 744-0944
+  var phoneInput = document.getElementById("phone");
+  if (phoneInput) {
+    phoneInput.addEventListener("input", function () {
+      var digits = phoneInput.value.replace(/\D/g, "").slice(0, 10);
+      var formatted = digits;
+      if (digits.length > 6) {
+        formatted = "(" + digits.slice(0, 3) + ") " + digits.slice(3, 6) + "-" + digits.slice(6);
+      } else if (digits.length > 3) {
+        formatted = "(" + digits.slice(0, 3) + ") " + digits.slice(3);
+      } else if (digits.length > 0) {
+        formatted = "(" + digits;
+      }
+      phoneInput.value = formatted;
+    });
+  }
+
   // Lead form submission
   var form = document.getElementById("leadForm");
   var msg = document.getElementById("formMsg");
