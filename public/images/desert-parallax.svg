@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 700" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#fce4a8"/>
+      <stop offset="32%" stop-color="#fec6e9"/>
+      <stop offset="62%" stop-color="#e34692"/>
+      <stop offset="100%" stop-color="#b30032"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#fffceb" stop-opacity="0.95"/>
+      <stop offset="55%" stop-color="#fce4a8" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#fce4a8" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ridge1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7d8fc9"/>
+      <stop offset="100%" stop-color="#5a6fb0"/>
+    </linearGradient>
+    <linearGradient id="ridge2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2e4fa0"/>
+      <stop offset="100%" stop-color="#1c3c8a"/>
+    </linearGradient>
+    <linearGradient id="ridge3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#003087"/>
+      <stop offset="100%" stop-color="#00276e"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="700" fill="url(#sky)"/>
+
+  <circle cx="1180" cy="230" r="230" fill="url(#sun)"/>
+  <circle cx="1180" cy="230" r="72" fill="#fffdf4"/>
+
+  <g fill="#ffffff" opacity="0.5">
+    <path d="M120 140 q14 -10 28 0 q14 -10 28 0" stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M300 90 q12 -9 24 0 q12 -9 24 0" stroke="#ffffff" stroke-width="3" fill="none" stroke-linecap="round"/>
+    <path d="M700 60 q10 -7 20 0 q10 -7 20 0" stroke="#ffffff" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- Ridge 1: farthest -->
+  <path d="M0 430 L100 360 L230 410 L360 320 L520 400 L660 340 L820 420 L980 350 L1140 410 L1300 330 L1460 400 L1600 360 L1600 700 L0 700 Z" fill="url(#ridge1)" opacity="0.85"/>
+
+  <!-- Ridge 2: middle -->
+  <path d="M0 480 L160 400 L320 470 L480 380 L640 460 L820 390 L1000 470 L1180 400 L1360 470 L1600 410 L1600 700 L0 700 Z" fill="url(#ridge2)"/>
+
+  <!-- Ridge 3: front, darkest -->
+  <path d="M0 560 L180 490 L340 550 L520 470 L700 545 L900 480 L1080 550 L1280 485 L1460 545 L1600 500 L1600 700 L0 700 Z" fill="url(#ridge3)"/>
+
+  <!-- Saguaro cacti silhouettes, foreground -->
+  <g fill="#00193f">
+    <!-- cactus 1 -->
+    <g transform="translate(150 470)">
+      <rect x="-11" y="-140" width="22" height="150" rx="11"/>
+      <rect x="-55" y="-95" width="22" height="70" rx="11"/>
+      <rect x="-55" y="-115" width="22" height="26" rx="11" transform="rotate(0)"/>
+      <path d="M-44 -95 a11 11 0 0 1 22 0 v20 h-22 z"/>
+      <rect x="33" y="-70" width="22" height="55" rx="11"/>
+      <path d="M33 -70 a11 11 0 0 1 22 0 v14 h-22 z"/>
+    </g>
+    <!-- cactus 2, smaller -->
+    <g transform="translate(430 545) scale(0.7)">
+      <rect x="-10" y="-130" width="20" height="140" rx="10"/>
+      <rect x="-48" y="-88" width="20" height="60" rx="10"/>
+      <path d="M-38 -88 a10 10 0 0 1 20 0 v14 h-20 z"/>
+      <rect x="28" y="-60" width="20" height="45" rx="10"/>
+      <path d="M28 -60 a10 10 0 0 1 20 0 v12 h-20 z"/>
+    </g>
+    <!-- cactus 3 -->
+    <g transform="translate(1050 555) scale(0.85)">
+      <rect x="-11" y="-150" width="22" height="160" rx="11"/>
+      <rect x="-56" y="-100" width="22" height="72" rx="11"/>
+      <path d="M-45 -100 a11 11 0 0 1 22 0 v18 h-22 z"/>
+    </g>
+    <!-- cactus 4, small distant -->
+    <g transform="translate(1420 545) scale(0.55)">
+      <rect x="-10" y="-120" width="20" height="130" rx="10"/>
+      <rect x="26" y="-75" width="20" height="55" rx="10"/>
+      <path d="M26 -75 a10 10 0 0 1 20 0 v14 h-20 z"/>
+    </g>
+    <!-- cactus 5, small right -->
+    <g transform="translate(760 560) scale(0.6)">
+      <rect x="-10" y="-125" width="20" height="135" rx="10"/>
+      <rect x="-46" y="-85" width="20" height="60" rx="10"/>
+      <path d="M-36 -85 a10 10 0 0 1 20 0 v14 h-20 z"/>
+    </g>
+  </g>
+
+  <path d="M0 650 L1600 610 L1600 700 L0 700 Z" fill="#00193f"/>
+</svg>
