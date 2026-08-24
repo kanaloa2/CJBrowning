@@ -21,10 +21,13 @@
   var yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // Parallax backgrounds — transform-driven rather than
-  // background-attachment: fixed, which is janky on desktop Safari and
-  // silently forced to "scroll" (i.e. no parallax at all) on every mobile
-  // browser. This runs everywhere, including mobile.
+  // Parallax backgrounds — JS-simulated background-attachment: fixed.
+  // Real background-attachment: fixed is janky on desktop Safari and
+  // silently forced to "scroll" (no pinning at all) on every mobile
+  // browser, so this pins the image to the viewport by hand instead:
+  // each frame, translate it by the exact inverse of its section's own
+  // scroll movement, so it holds still while the section's content
+  // scrolls over it — on every browser, including mobile.
   (function initParallax() {
     var els = Array.prototype.slice.call(document.querySelectorAll("[data-parallax]"));
     if (!els.length) return;
@@ -53,19 +56,12 @@
     }
 
     var ticking = false;
-    var speed = 0.15;
-    var maxOffset = 40;
 
     function update() {
       ticking = false;
-      var vh = window.innerHeight;
       visible.forEach(function (el) {
         var rect = el.parentElement.getBoundingClientRect();
-        var center = rect.top + rect.height / 2;
-        var offset = (center - vh / 2) * speed;
-        if (offset > maxOffset) offset = maxOffset;
-        if (offset < -maxOffset) offset = -maxOffset;
-        el.style.transform = "translate3d(0, " + offset.toFixed(1) + "px, 0)";
+        el.style.transform = "translate3d(0, " + (-rect.top).toFixed(1) + "px, 0)";
       });
     }
 

@@ -710,12 +710,20 @@ ul {
   display: block;
 }
 
-/* Parallax backgrounds (JS-driven transform, not background-attachment:
-   fixed — that's janky on desktop Safari and silently disabled on all
-   mobile browsers, so it can't deliver parallax there at all) */
+/* Parallax backgrounds — JS-simulated background-attachment: fixed.
+   Real background-attachment: fixed is janky on desktop Safari and
+   silently disabled on all mobile browsers (forced to "scroll"), so it
+   can't deliver a pinned background there at all. This pins the image
+   to the viewport instead: it's sized to the full viewport height and,
+   on every scroll frame, translated by the exact inverse of its
+   section's own movement — so the image never appears to move while
+   the section (and its content) scrolls past it, on every browser. */
 .parallax-bg {
   position: absolute;
-  inset: -12% 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
   z-index: 0;
   background-size: cover;
   background-repeat: no-repeat;
