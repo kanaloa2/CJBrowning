@@ -115,7 +115,7 @@ async function handleLead(request, env, ctx) {
     );
   }
 
-  if (env.AGENCYZOOM_API_URL && env.AGENCYZOOM_API_KEY) {
+  if (env.AGENCYZOOM_WEBHOOK_URL) {
     ctx.waitUntil(forwardToAgencyZoom(lead, env));
   }
 
@@ -123,43 +123,47 @@ async function handleLead(request, env, ctx) {
 }
 
 /**
- * Forwards a lead to AgencyZoom's Lead API.
+ * Forwards a lead to AgencyZoom's inbound lead webhook.
  *
- * NOT YET VERIFIED against AgencyZoom's actual API contract — the field
- * names, auth header, and endpoint path below are a best-effort mapping
- * and must be confirmed against AgencyZoom's own API docs (or an example
- * request from their support team) before this can be trusted in
- * production. Until then, failures are recorded in KV (under the
- * `agencyzoom-failure:` prefix) rather than silently dropped, so leads
- * are never lost even if this integration is misconfigured.
+ * AgencyZoom's "Web Lead Integration" webhooks take a single secret URL
+ * (generated per-agency in the AgencyZoom dashboard) as the credential —
+ * there's no separate API key or auth header. Field names below are
+ * confirmed against a real payload from an existing AgencyZoom lead
+ * vendor integration ("Smart Financial"), which uses a much larger
+ * auto-insurance-specific schema (birthday, vehicles[], drivers[],
+ * requestedCoverage, etc.) than this site's simple multi-line P&C form
+ * collects. Only the fields we actually have data for are sent; the rest
+ * are intentionally omitted rather than guessed.
  */
 async function forwardToAgencyZoom(lead, env) {
-  const [firstName, ...rest] = lead.name.split(" ");
-  const lastName = rest.join(" ") || firstName;
+  const [firstname, ...rest] = lead.name.split(" ");
+  const lastname = rest.join(" ") || firstname;
+
+  const notes = [
+    lead.insuranceTypes.length ? `Interested in: ${lead.insuranceTypes.join(", ")}` : "",
+    lead.bestTime ? `Best time to reach: ${lead.bestTime}` : "",
+    lead.message,
+  ]
+    .filter(Boolean)
+    .join(" | ");
 
   const body = {
-    firstName,
-    lastName,
+    firstname,
+    lastname,
+    contactname: lead.name,
     email: lead.email,
-    phone: lead.phone,
+    phone: lead.phone.replace(/\D/g, ""),
     zip: lead.zip,
-    products: lead.insuranceTypes,
-    note: [lead.currentCarrier && `Current carrier: ${lead.currentCarrier}`, lead.message]
-      .filter(Boolean)
-      .join(" | "),
-    leadSource: env.AGENCYZOOM_LEAD_SOURCE || "Website",
+    country: "USA",
+    currentCarrier: lead.currentCarrier || undefined,
+    notes: notes || undefined,
+    leadSource: "Website",
   };
 
-  const headerName = env.AGENCYZOOM_AUTH_HEADER_NAME || "Authorization";
-  const headerPrefix = env.AGENCYZOOM_AUTH_HEADER_PREFIX ?? "Bearer ";
-
   try {
-    const res = await fetch(env.AGENCYZOOM_API_URL, {
+    const res = await fetch(env.AGENCYZOOM_WEBHOOK_URL, {
       method: "POST",
-      headers: {
-        "content-type": "application/json",
-        [headerName]: `${headerPrefix}${env.AGENCYZOOM_API_KEY}`,
-      },
+      headers: { "content-type": "application/json" },
       body: JSON.stringify(body),
     });
 

@@ -21,14 +21,11 @@ enabled = true
 # [vars]
 # LEAD_WEBHOOK_URL = "https://hooks.example.com/your-webhook"
 
-# Optional: forward every new lead directly to AgencyZoom's Lead API.
-# Requires an API key from AgencyZoom (Settings > Integrations/API) and the
-# exact endpoint/auth header they specify — see src/worker.js for the
-# current (unverified) field mapping, which should be confirmed against
-# AgencyZoom's docs before going live.
-#   wrangler secret put AGENCYZOOM_API_KEY
-# [vars]
-# AGENCYZOOM_API_URL = "https://api.agencyzoom.com/api/leads"
-# AGENCYZOOM_LEAD_SOURCE = "Website"
-# AGENCYZOOM_AUTH_HEADER_NAME = "Authorization"
-# AGENCYZOOM_AUTH_HEADER_PREFIX = "Bearer "
+# Optional: forward every new lead directly to AgencyZoom via its inbound
+# Web Lead Integration webhook (My Agency > Integration > Web Lead
+# Integration in the AgencyZoom App Marketplace). The webhook URL itself
+# is the credential (no separate API key/header) — it MUST be set as a
+# secret, never as a plain-text var, since it's committed to a public repo:
+#   wrangler secret put AGENCYZOOM_WEBHOOK_URL
+# (or Cloudflare dashboard: Workers & Pages > cjbrowning > Settings >
+# Variables and Secrets > Add > type "Secret")
