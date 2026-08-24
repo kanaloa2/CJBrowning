@@ -21,6 +21,66 @@
   var yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  // Parallax backgrounds — transform-driven rather than
+  // background-attachment: fixed, which is janky on desktop Safari and
+  // silently forced to "scroll" (i.e. no parallax at all) on every mobile
+  // browser. This runs everywhere, including mobile.
+  (function initParallax() {
+    var els = Array.prototype.slice.call(document.querySelectorAll("[data-parallax]"));
+    if (!els.length) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    var visible = els.slice();
+
+    if ("IntersectionObserver" in window) {
+      visible = [];
+      var io = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            var idx = visible.indexOf(entry.target);
+            if (entry.isIntersecting) {
+              if (idx === -1) visible.push(entry.target);
+            } else if (idx !== -1) {
+              visible.splice(idx, 1);
+            }
+          });
+        },
+        { rootMargin: "25% 0px 25% 0px" }
+      );
+      els.forEach(function (el) {
+        io.observe(el);
+      });
+    }
+
+    var ticking = false;
+    var speed = 0.15;
+    var maxOffset = 40;
+
+    function update() {
+      ticking = false;
+      var vh = window.innerHeight;
+      visible.forEach(function (el) {
+        var rect = el.parentElement.getBoundingClientRect();
+        var center = rect.top + rect.height / 2;
+        var offset = (center - vh / 2) * speed;
+        if (offset > maxOffset) offset = maxOffset;
+        if (offset < -maxOffset) offset = -maxOffset;
+        el.style.transform = "translate3d(0, " + offset.toFixed(1) + "px, 0)";
+      });
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    update();
+  })();
+
   // Lead form submission
   var form = document.getElementById("leadForm");
   var msg = document.getElementById("formMsg");

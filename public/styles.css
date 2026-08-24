@@ -329,16 +329,19 @@ ul {
   position: relative;
   overflow: hidden;
   padding: 76px 0 100px;
-  background: linear-gradient(180deg, rgba(0, 39, 110, 0.45), rgba(0, 25, 63, 0.72)), url('/images/sonoran-desert.webp');
-  background-size: cover;
+  background: var(--navy);
+}
+
+.hero .parallax-bg {
+  background-image: linear-gradient(180deg, rgba(0, 39, 110, 0.45), rgba(0, 25, 63, 0.72)), url('/images/sonoran-desert.webp');
   background-position: center 62%;
-  background-attachment: fixed;
 }
 
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   background: radial-gradient(circle at 82% 12%, rgba(224, 25, 51, 0.25), transparent 45%),
     radial-gradient(circle at 8% 90%, rgba(0, 48, 135, 0.4), transparent 50%);
   pointer-events: none;
@@ -346,6 +349,7 @@ ul {
 
 .hero-grid {
   position: relative;
+  z-index: 2;
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: 56px;
@@ -706,26 +710,47 @@ ul {
   display: block;
 }
 
+/* Parallax backgrounds (JS-driven transform, not background-attachment:
+   fixed — that's janky on desktop Safari and silently disabled on all
+   mobile browsers, so it can't deliver parallax there at all) */
+.parallax-bg {
+  position: absolute;
+  inset: -12% 0;
+  z-index: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  will-change: transform;
+  pointer-events: none;
+}
+
 /* Local section — parallax desert background */
 .desert-parallax {
   position: relative;
+  overflow: hidden;
+}
+
+.desert-parallax .parallax-bg {
   background-image: url('/images/sonoran-desert.webp');
-  background-size: cover;
   background-position: center 65%;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .parallax-bg {
+    transform: none !important;
+  }
 }
 
 .desert-parallax::before {
   content: "";
   position: absolute;
   inset: 0;
+  z-index: 1;
   background: linear-gradient(180deg, rgba(0, 39, 110, 0.35), rgba(0, 25, 63, 0.55));
 }
 
 .desert-parallax > .container {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .local-card {
@@ -734,20 +759,6 @@ ul {
   border-radius: var(--radius);
   padding: 32px;
   box-shadow: var(--shadow);
-}
-
-@media (max-width: 900px) {
-  .desert-parallax,
-  .hero {
-    background-attachment: scroll;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .desert-parallax,
-  .hero {
-    background-attachment: scroll;
-  }
 }
 
 .local-wrap {
@@ -1160,7 +1171,11 @@ ul {
   text-align: center;
 }
 
-@media (max-width: 980px) {
+/* Header/nav switch to the mobile off-canvas pattern earlier than the
+   content breakpoint below — the full desktop header (logo + badge +
+   nav links + phone + CTA button) doesn't fit in the ~980-1049px range
+   and was overflowing there. */
+@media (max-width: 1060px) {
   .main-nav {
     position: fixed;
     top: 74px;
@@ -1196,6 +1211,16 @@ ul {
     display: none;
   }
 
+  .mobile-call-bar {
+    display: flex;
+  }
+
+  body {
+    padding-bottom: 66px;
+  }
+}
+
+@media (max-width: 980px) {
   .hero-grid,
   .why-grid,
   .local-wrap,
@@ -1213,14 +1238,6 @@ ul {
 
   .footer-grid {
     grid-template-columns: 1fr 1fr;
-  }
-
-  .mobile-call-bar {
-    display: flex;
-  }
-
-  body {
-    padding-bottom: 66px;
   }
 }
 
