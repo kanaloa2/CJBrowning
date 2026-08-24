@@ -166,14 +166,21 @@ async function forwardToAgencyZoom(lead, env) {
       headers: { "content-type": "application/json" },
       body: JSON.stringify(body),
     });
+    const resText = await res.text().catch(() => "");
 
-    if (!res.ok && env.LEADS) {
-      await env.LEADS.put(
-        `agencyzoom-failure:${lead.receivedAt}:${lead.id}`,
-        JSON.stringify({ status: res.status, statusText: res.statusText, body, leadId: lead.id })
-      );
+    if (res.ok) {
+      console.log(`AgencyZoom: lead ${lead.id} forwarded, status ${res.status}`, resText.slice(0, 500));
+    } else {
+      console.error(`AgencyZoom: lead ${lead.id} rejected, status ${res.status}`, resText.slice(0, 500));
+      if (env.LEADS) {
+        await env.LEADS.put(
+          `agencyzoom-failure:${lead.receivedAt}:${lead.id}`,
+          JSON.stringify({ status: res.status, statusText: res.statusText, responseBody: resText, body, leadId: lead.id })
+        );
+      }
     }
   } catch (err) {
+    console.error(`AgencyZoom: lead ${lead.id} threw`, String(err));
     if (env.LEADS) {
       await env.LEADS.put(
         `agencyzoom-failure:${lead.receivedAt}:${lead.id}`,
