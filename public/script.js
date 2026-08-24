@@ -33,33 +33,19 @@
     if (!els.length) return;
     if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-    var visible = els.slice();
-
-    if ("IntersectionObserver" in window) {
-      visible = [];
-      var io = new IntersectionObserver(
-        function (entries) {
-          entries.forEach(function (entry) {
-            var idx = visible.indexOf(entry.target);
-            if (entry.isIntersecting) {
-              if (idx === -1) visible.push(entry.target);
-            } else if (idx !== -1) {
-              visible.splice(idx, 1);
-            }
-          });
-        },
-        { rootMargin: "25% 0px 25% 0px" }
-      );
-      els.forEach(function (el) {
-        io.observe(el);
-      });
-    }
-
+    // Always recompute every parallax element's position on every scroll
+    // frame — there are only ever a couple of these on the page, so this
+    // is cheap. An earlier version only updated elements while an
+    // IntersectionObserver considered them "visible," to save work, but
+    // that observer fires asynchronously and can fall out of sync with
+    // scroll events, leaving a section's background transform stuck at a
+    // stale offset — which pushes the pinned image out of its section's
+    // clipping window and shows blank space instead.
     var ticking = false;
 
     function update() {
       ticking = false;
-      visible.forEach(function (el) {
+      els.forEach(function (el) {
         var rect = el.parentElement.getBoundingClientRect();
         el.style.transform = "translate3d(0, " + (-rect.top).toFixed(1) + "px, 0)";
       });

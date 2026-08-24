@@ -735,6 +735,7 @@ ul {
 .desert-parallax {
   position: relative;
   overflow: hidden;
+  background: var(--navy);
 }
 
 .desert-parallax .parallax-bg {
