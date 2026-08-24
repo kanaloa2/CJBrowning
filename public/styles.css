@@ -396,20 +396,6 @@ ul {
   gap: 14px;
 }
 
-.hero-visual-card {
-  margin-top: 36px;
-  background: #fff;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 20px;
-  max-width: 360px;
-}
-
-.hero-visual-card img {
-  width: 100%;
-  height: auto;
-}
-
 /* Quote card */
 .quote-card {
   background: #fff;
@@ -710,20 +696,14 @@ ul {
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow);
+  aspect-ratio: 4 / 3;
 }
 
-.illustration-frame {
-  background: var(--sky);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 32px;
-}
-
-.illustration-frame img {
+.desert-art img {
   width: 100%;
-  max-width: 420px;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 /* Local section — parallax desert background */
