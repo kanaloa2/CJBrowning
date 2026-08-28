@@ -226,15 +226,10 @@ ul {
 .brand-mark {
   width: 44px;
   height: 44px;
-  border-radius: 12px;
-  background: linear-gradient(135deg, var(--navy), var(--blue));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-family: var(--font-head);
-  font-weight: 700;
-  font-size: 1.1rem;
+  border-radius: 50%;
+  background: var(--sky);
+  object-fit: cover;
+  display: block;
   flex: none;
 }
 
