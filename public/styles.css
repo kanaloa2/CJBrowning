@@ -589,10 +589,13 @@ ul {
 }
 
 .coverage-card {
+  display: block;
   background: #fff;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 26px 22px;
+  text-decoration: none;
+  color: inherit;
   transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
 
@@ -621,27 +624,7 @@ ul {
 
 .coverage-card h3 {
   font-size: 1.05rem;
-  margin-bottom: 8px;
-}
-
-.coverage-card p {
-  color: var(--gray);
-  font-size: 0.92rem;
-  margin-bottom: 14px;
-}
-
-.coverage-card .card-link {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--blue);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.coverage-card .card-link:hover {
-  text-decoration: underline;
+  margin: 0;
 }
 
 /* Why us */
@@ -692,6 +675,7 @@ ul {
 
 .why-item {
   display: flex;
+  align-items: center;
   gap: 16px;
 }
 
@@ -714,12 +698,6 @@ ul {
 
 .why-item h3 {
   font-size: 1.05rem;
-  margin-bottom: 4px;
-}
-
-.why-item p {
-  color: var(--gray);
-  font-size: 0.93rem;
   margin: 0;
 }
 
@@ -830,6 +808,7 @@ ul {
 
 .risk-item {
   display: flex;
+  align-items: center;
   gap: 12px;
   background: #fff;
   border: 1px solid var(--line);
@@ -842,65 +821,13 @@ ul {
   height: 22px;
   color: var(--red);
   flex: none;
-  margin-top: 2px;
 }
 
 .risk-item h4 {
   font-family: var(--font-head);
   font-size: 0.95rem;
-  margin: 0 0 4px;
-  color: var(--navy);
-}
-
-.risk-item p {
   margin: 0;
-  font-size: 0.86rem;
-  color: var(--gray);
-}
-
-/* Process steps */
-.steps {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
-  counter-reset: step;
-}
-
-.step {
-  position: relative;
-  padding: 28px 22px 22px;
-  background: #fff;
-  border-radius: var(--radius);
-  border: 1px solid var(--line);
-}
-
-.step::before {
-  counter-increment: step;
-  content: counter(step);
-  position: absolute;
-  top: -18px;
-  left: 22px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--accent);
   color: var(--navy);
-  font-family: var(--font-head);
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.step h3 {
-  font-size: 1rem;
-  margin: 10px 0 6px;
-}
-
-.step p {
-  font-size: 0.88rem;
-  color: var(--gray);
-  margin: 0;
 }
 
 /* Farmers network band */
@@ -1268,10 +1195,6 @@ ul {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .steps {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .footer-grid {
     grid-template-columns: 1fr 1fr;
   }
@@ -1287,8 +1210,7 @@ ul {
     grid-template-columns: 1fr;
   }
 
-  .coverage-grid,
-  .steps {
+  .coverage-grid {
     grid-template-columns: 1fr;
   }
 
